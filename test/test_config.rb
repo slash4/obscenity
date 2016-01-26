@@ -50,7 +50,6 @@ class TestConfig < Test::Unit::TestCase
       exceptions = [
         [Obscenity::UnkownContent, {}],
         [Obscenity::UnkownContent, ":unkown"],
-        [Obscenity::EmptyContentList, []],
         [Obscenity::UnkownContentFile, "'path/to/file'"],
         [Obscenity::UnkownContentFile, Pathname.new("'path/to/file'")]
       ].each do |klass, value|
