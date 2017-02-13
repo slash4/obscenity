@@ -34,7 +34,9 @@ module Obscenity
             text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist.include?(foul)
           end
         else
-          blacklist[obj.country_code].each do |foul|
+          blacklist ||= {}
+          blacklist[obj.country_code.to_sym] ||= []
+          blacklist[obj.country_code.to_sym].each do |foul|
             text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist[obj.country_code].include?(foul)
           end
         end
