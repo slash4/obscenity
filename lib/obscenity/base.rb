@@ -26,10 +26,17 @@ module Obscenity
         false
       end
 
-      def sanitize(text)
+      def sanitize(text, obj=nil)
         return(text) unless text.to_s.size >= 3
-        blacklist.each do |foul|
-          text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist.include?(foul)
+
+        if !obj || !obj.country_code || blacklist.is_a?(Array)
+          blacklist.each do |foul|
+            text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist.include?(foul)
+          end
+        else
+          blacklist[obj.country_code].each do |foul|
+            text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist[obj.country_code].include?(foul)
+          end
         end
         @scoped_replacement = nil
         text
@@ -64,6 +71,7 @@ module Obscenity
       def set_list_content(list)
         case list
         when Array then list
+        when Hash then list
         when String, Pathname then YAML.load_file( list.to_s )
         else []
         end
