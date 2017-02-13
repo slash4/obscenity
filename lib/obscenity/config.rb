@@ -70,6 +70,7 @@ module Obscenity
     def set_list_content(list)
       case list
       when Array then list
+      when Hash then list
       when String, Pathname then YAML.load_file( list.to_s )
       else []
       end
