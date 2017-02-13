@@ -40,9 +40,13 @@ module Obscenity
         else
           puts "I18N" if Rails.env.development?
           blacklist ||= {}
+          whitelist ||= {}
           blacklist[obj.country_code.to_sym] ||= []
+          whitelist[obj.country_code.to_sym] ||= []
+
           blacklist[obj.country_code.to_sym].each do |foul|
-            text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist[obj.country_code].include?(foul)
+            puts "REPLACE : #{foul} by #{replace(foul)}" if Rails.env.development?
+            text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist[obj.country_code.to_sym].include?(foul)
           end
         end
         @scoped_replacement = nil
