@@ -53,6 +53,7 @@ module Obscenity
     def validate_list_content(content)
       case content
       when Array    then !content.empty?       #|| puts("Using an empty dictionnary of blacklisted words")
+      when Hash    then !content.keys.empty?       #|| puts("Using an empty dictionnary of blacklisted words")
       when String   then File.exists?(content) || raise(Obscenity::UnkownContentFile.new("Content file can't be found."))
       when Pathname then content.exist?        || raise(Obscenity::UnkownContentFile.new("Content file can't be found."))
       when Symbol   then content == :default   || raise(Obscenity::UnkownContent.new("The only accepted symbol is :default."))
