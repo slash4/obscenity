@@ -47,10 +47,16 @@ module Obscenity
           blacklist[obj.country_code.to_sym] ||= []
           whitelist[obj.country_code.to_sym] ||= []
 
+          puts "SANITIZE : blacklist[obj.country_code.to_sym] : #{blacklist[obj.country_code.to_sym]}" if Rails.env.development?
+          puts "SANITIZE : blacklist[obj.country_code.to_sym].count : #{blacklist[obj.country_code.to_sym].count}" if Rails.env.development?
+          puts "SANITIZE : blacklist[obj.country_code.to_sym].first : #{blacklist[obj.country_code.to_sym].first}" if Rails.env.development?
+
           blacklist[obj.country_code.to_sym].each do |foul|
             puts "REPLACE : #{foul} by #{replace(foul)}" if Rails.env.development?
             text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist[obj.country_code.to_sym].include?(foul)
           end
+
+          puts blacklist[:FR]
         end
         @scoped_replacement = nil
         text
