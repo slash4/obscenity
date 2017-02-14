@@ -29,7 +29,7 @@ module Obscenity
       def sanitize(text, obj=nil)
         return(text) unless text.to_s.size >= 3
         obj.country_code = 'GB' if obj.country_code.nil?
-        blacklist = {} if blacklist.is_a? Array
+        blacklist = {} if (blacklist.is_a?(Array) || blacklist.nil?)
         blacklist[obj.country_code.to_sym] = [] if blacklist[obj.country_code.to_sym].nil?
 
         blacklist[obj.country_code.to_sym].each do |foul|
