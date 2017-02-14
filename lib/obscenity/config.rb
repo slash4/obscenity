@@ -4,7 +4,7 @@ module Obscenity
     attr_accessor :replacement
 
     DEFAULT_WHITELIST = []
-    DEFAULT_BLACKLIST = File.dirname(__FILE__) + "/../../config/blacklist.yml"
+    DEFAULT_BLACKLIST = {}
 
     def initialize
       @init = true
