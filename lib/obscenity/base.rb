@@ -34,12 +34,12 @@ module Obscenity
             text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist.include?(foul)
           end
         else
+          blacklist[obj.country_code.to_sym] = [] if blacklist[obj.country_code.to_sym].nil?
 
           blacklist[obj.country_code.to_sym].each do |foul|
             text.gsub!(/\b#{foul}\b/i, replace(foul))
           end
 
-          puts blacklist[:FR]
         end
         @scoped_replacement = nil
         text
