@@ -28,19 +28,15 @@ module Obscenity
 
       def sanitize(text, obj=nil)
         return(text) unless text.to_s.size >= 3
+        obj.country_code = 'GB' if obj.country_code.nil?
 
-        if !obj || !obj.country_code || blacklist.is_a?(Array)
-          blacklist.each do |foul|
-            text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist.include?(foul)
-          end
-        else
-          blacklist[obj.country_code.to_sym] = [] if blacklist[obj.country_code.to_sym].nil?
+        blacklist[obj.country_code.to_sym] = [] if blacklist[obj.country_code.to_sym].nil?
 
-          blacklist[obj.country_code.to_sym].each do |foul|
-            text.gsub!(/\b#{foul}\b/i, replace(foul))
-          end
-
+        blacklist[obj.country_code.to_sym].each do |foul|
+          text.gsub!(/\b#{foul}\b/i, replace(foul))
         end
+
+
         @scoped_replacement = nil
         text
       end
