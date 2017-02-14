@@ -42,10 +42,8 @@ module Obscenity
           end
         else
           puts "I18N" if Rails.env.development?
-          blacklist ||= {}
-          whitelist ||= {}
-          blacklist[obj.country_code.to_sym] ||= []
-          whitelist[obj.country_code.to_sym] ||= []
+          blacklist[obj.country_code.to_sym] = [] if blacklist[obj.country_code.to_sym].nil?
+          whitelist[obj.country_code.to_sym] = [] if whitelist[obj.country_code.to_sym].nil?
 
           puts "SANITIZE : blacklist[obj.country_code.to_sym] : #{blacklist[obj.country_code.to_sym]}" if Rails.env.development?
           puts "SANITIZE : blacklist[obj.country_code.to_sym].count : #{blacklist[obj.country_code.to_sym].count}" if Rails.env.development?
