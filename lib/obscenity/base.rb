@@ -43,7 +43,6 @@ module Obscenity
         else
           puts "I18N" if Rails.env.development?
           blacklist[obj.country_code.to_sym] = [] if blacklist[obj.country_code.to_sym].nil?
-          whitelist[obj.country_code.to_sym] = [] if whitelist[obj.country_code.to_sym].nil?
 
           puts "SANITIZE : blacklist[obj.country_code.to_sym] : #{blacklist[obj.country_code.to_sym]}" if Rails.env.development?
           puts "SANITIZE : blacklist[obj.country_code.to_sym].count : #{blacklist[obj.country_code.to_sym].count}" if Rails.env.development?
@@ -51,7 +50,7 @@ module Obscenity
 
           blacklist[obj.country_code.to_sym].each do |foul|
             puts "REPLACE : #{foul} by #{replace(foul)}" if Rails.env.development?
-            text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist[obj.country_code.to_sym].include?(foul)
+            text.gsub!(/\b#{foul}\b/i, replace(foul))
           end
 
           puts blacklist[:FR]
