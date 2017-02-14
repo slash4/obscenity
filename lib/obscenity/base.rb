@@ -32,6 +32,8 @@ module Obscenity
         puts "SANITIZE : '#{text}' cc : #{obj.try(:country_code).try(:to_sym)}" if Rails.env.development?
         puts "SANITIZE : blacklist : #{blacklist.inspect}" if Rails.env.development?
         puts "SANITIZE : blacklist[obj.country_code.to_sym] : #{blacklist[obj.country_code.to_sym]}" if Rails.env.development?
+        puts "SANITIZE : blacklist[obj.country_code.to_sym].count : #{blacklist[obj.country_code.to_sym].count}" if Rails.env.development?
+        puts "SANITIZE : blacklist[obj.country_code.to_sym].first : #{blacklist[obj.country_code.to_sym].first}" if Rails.env.development?
 
         if !obj || !obj.country_code || blacklist.is_a?(Array)
           puts "SIMPLE" if Rails.env.development?
