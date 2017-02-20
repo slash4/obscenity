@@ -29,8 +29,15 @@ module Obscenity
       def sanitize(text, obj=nil)
         return(text) unless text.to_s.size >= 3
         obj.country_code = 'GB' if obj.country_code.nil?
+
+        puts "SANITIZE" if Rails.env.development?
+        puts blacklist if Rails.env.development?
+
         blacklist = {} if (blacklist.is_a?(Array) || blacklist.nil?)
         blacklist[obj.country_code.to_sym] = [] if blacklist[obj.country_code.to_sym].nil?
+
+        puts "SANITIZE" if Rails.env.development?
+        puts blacklist if Rails.env.development?
 
         blacklist[obj.country_code.to_sym].each do |foul|
           text.gsub!(/\b#{foul}\b/i, replace(foul))
