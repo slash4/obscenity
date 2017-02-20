@@ -32,12 +32,22 @@ module Obscenity
 
         puts "SANITIZE" if Rails.env.development?
         puts blacklist if Rails.env.development?
+        puts blacklist.nil? if Rails.env.development?
+        puts blacklist.is_a?(Array) if Rails.env.development?
 
         blacklist = {} if (blacklist.is_a?(Array) || blacklist.nil?)
+
+        puts "SANITIZE" if Rails.env.development?
+        puts blacklist if Rails.env.development?
+        puts blacklist.nil? if Rails.env.development?
+        puts blacklist.is_a?(Array) if Rails.env.development?
+
         blacklist[obj.country_code.to_sym] = [] if blacklist[obj.country_code.to_sym].nil?
 
         puts "SANITIZE" if Rails.env.development?
         puts blacklist if Rails.env.development?
+        puts blacklist.nil? if Rails.env.development?
+        puts blacklist.is_a?(Array) if Rails.env.development?
 
         blacklist[obj.country_code.to_sym].each do |foul|
           text.gsub!(/\b#{foul}\b/i, replace(foul))
