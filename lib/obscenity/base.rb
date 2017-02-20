@@ -35,7 +35,13 @@ module Obscenity
         puts blacklist.nil? if Rails.env.development?
         puts blacklist.is_a?(Array) if Rails.env.development?
 
-        blacklist = {} if (blacklist.is_a?(Array) || blacklist.nil?)
+        if (blacklist.is_a?(Array) || blacklist.nil?)
+          puts "DEBUG"
+          puts (blacklist.is_a?(Array) || blacklist.nil?)
+          puts blacklist.nil? if Rails.env.development?
+          puts blacklist.is_a?(Array) if Rails.env.development?
+          blacklist = {}
+        end
 
         puts "SANITIZE" if Rails.env.development?
         puts blacklist if Rails.env.development?
