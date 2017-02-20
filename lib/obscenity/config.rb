@@ -72,7 +72,9 @@ module Obscenity
       when Array then list
       when Hash then list
       when String, Pathname then YAML.load_file( list.to_s )
-      else []
+      else
+        puts "-----------------------ERROR set_list_content" if Rails.env.development?
+        []
       end
     end
 

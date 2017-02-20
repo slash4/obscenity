@@ -3,12 +3,10 @@ module Obscenity
     class << self
 
       def blacklist
-        puts "TARACE"
         @blacklist ||= set_list_content(Obscenity.config.blacklist)
       end
 
       def blacklist=(value)
-        puts "BOULBA"
         @blacklist = value == :default ? set_list_content(Obscenity::Config.new.blacklist) : value
       end
 
@@ -32,9 +30,11 @@ module Obscenity
         return(text) unless text.to_s.size >= 3
         obj.country_code = 'GB' if obj.country_code.nil?
 
-        blacklist[obj.country_code.to_sym] = [] if blacklist[obj.country_code.to_sym].nil?
+        @blacklist[obj.country_code.to_sym] = [] if @blacklist[obj.country_code.to_sym].nil?
 
-        blacklist[obj.country_code.to_sym].each do |foul|
+        puts @blacklist if Rails.env.development?
+
+        @blacklist[obj.country_code.to_sym].each do |foul|
           text.gsub!(/\b#{foul}\b/i, replace(foul))
         end
 
@@ -73,7 +73,9 @@ module Obscenity
         when Array then list
         when Hash then list
         when String, Pathname then YAML.load_file( list.to_s )
-        else []
+        else
+          puts "-----------------------ERROR set_list_content" if Rails.env.development?
+          []
         end
       end
 
